@@ -19,7 +19,7 @@ Parameters:
     Type: Number
     Default: 8080
 Resources:
-  MyRepository: 
+  ECRRepository: 
     Type: AWS::ECR::Repository
     Properties: 
       RepositoryName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'ecr-repository']]
@@ -86,7 +86,7 @@ Resources:
               Branch: !Ref GithubBranch
               Owner: !Ref GithubUserName
               OAuthToken: !Ref GithubOAuthToken
-            Region: !Ref Region
+            Region: !Ref AWS::Region
             RunOrder: 1
             OutputArtifacts:
               - Name: source-output-artifacts
@@ -143,7 +143,7 @@ Resources:
             Action: 'sts:AssumeRole'
       ManagedPolicyArns:
         - 'arn:aws:iam::aws:policy/AdministratorAccess'
-        
+
   CodePipeLineExecutionRole:
     Type: AWS::IAM::Role
     Properties:
